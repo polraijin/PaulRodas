@@ -1,0 +1,36 @@
+// Traemos el paquete
+const  { Enrutador }  =  require ( `express` ) ;
+
+// inicializamos el router
+const  enrutador  =  Enrutador ( ) ;
+// Creacion de los endpoint
+enrutador . get ( "/" , ( req ,  res )  => {
+    res . enviar ( "Hola mundo con ExpressJS" ) ;
+} )
+. get ( "/ saludo" ,  ( req ,  res )  => {
+    const  {  consulta : { nombre , apellido }  }  =  req ;
+    res . json ( {
+        saludo : `hola soy $ { nombre }  $ { apellido } ` ,
+    } )
+} )
+. get ( `/ saludo /: nombre` ,  ( req ,  res )  =>  {
+    const  { params : { nombre } }  =  req ;
+
+    // const nombre = req.params.nombre
+    res . json ( {
+        nombre : nombre ,
+    } )
+} )
+
+
+
+
+
+// exportamos las rutas
+módulo . Exportaciones . RouterIndex  =  enrutador ;
+
+/ ** módulo = {
+    exportaciones: {
+        RouterIndex: enrutador
+    }
+}
