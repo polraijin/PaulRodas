@@ -1,0 +1,146 @@
+const  joi  =  require ( `joi` ) ;
+
+ usuario  constante =  joi . objeto ( {
+    nombre : joi . cadena ( ) . min ( 2 ) . máx. ( 50 ) . vacío ( ) . requerido ( ) ,
+    apellido : joi . cadena ( ) . min ( 2 ) . máx. ( 50 ) . vacío ( ) . requerido ( )
+} )
+
+módulo . exportaciones  =  {
+    usuario ,
+}
+/ **
+función DataValidator (req, res, siguiente) {
+    req.pruebaDeMiddleware = "Hola mundo con Middleware";
+    Siguiente()
+}
+ * /
+const  { Schema }  =  require ( "joi" ) ;
+const  { usuario } = require ( `../ lib / Schema / User` )
+
+function  DataValidator ( check  =  "query" ,  Schema ) {
+    return  ( req ,  res ,  siguiente ) => {
+        var  data  =  req [ comprobar ]
+        const  { error , valor }  =  esquema . validar ( datos ) ;
+
+        if ( error ) {
+            res . estado ( 406 ) . json ( {
+                msg : error . detalles [ 0 ] . mensaje ,
+            } )
+        } más {
+            req [ comprobar ] = valor
+            siguiente ( )
+        }
+    }    
+}
+
+// Primero se pone el nombre de la llave luego la funcion
+módulo . Exportaciones . DataValidator = DataValidator ;
+
+
+// Traemos el paquete
+const  { Enrutador }  =  require ( `express` ) ;
+const  { usuario }  =  require ( "../lib/Schema/User" ) ;
+const  { DataValidator } = require ( `../ middlewares / DataValidator` )
+// inicializamos el router
+const  enrutador  =  Enrutador ( ) ;
+// Creacion de los endpoint
+enrutador . get ( "/" ,  ( req ,  res )  => {
+    res . enviar ( "Hola mundo con expressJS" ) ;
+} )
+. get ( "/ saludo" ,  DataValidator ( "consulta" ,  usuario ) ,  ( req ,  res )  => {
+    const  {  consulta : { nombre , apellido }  }  =  req ;
+    res . json ( {
+        saludo : `hola soy $ { nombre }  $ { apellido } ` ,
+    } )
+} )
+. get ( `/ saludo /: nombre` ,  ( req ,  res )  =>  {
+    const  { params : { nombre } }  =  req ;
+
+    // const nombre = req.params.nombre
+    res . json ( {
+        nombre : nombre ,
+    } )
+} )
+
+
+
+
+
+// exportamos las rutas
+módulo . Exportaciones . RouterIndex  =  enrutador ;
+
+/ ** módulo = {
+    exportaciones: {
+        RouterIndex: enrutador
+    }
+}
+** /
+
+const  { Enrutador , consulta }  =  require ( `express` ) ;
+const  data  =  require ( `../ MOCK_DATA.json` )
+const  enrutador  =  Enrutador ( ) ;
+enrutador . get ( "/" ,  ( req ,  res ) => {
+    res . json ( {
+        msg : "Deber del video"
+    } )
+} )
+// Ruta del cebador
+// 1_-Usuario
+. get ( "/ usuarios" ,  ( req ,  res ) => {
+    res . json ( {
+        msg : "Lista de usuarios" ,
+        cuerpo : datos . mapa ( ( persona )  => {
+            persona . first_name  =  persona . first_name . toUpperCase ( ) ;
+            persona . last_name =  persona . apellido . toUpperCase ( ) ;
+             persona de regreso ;
+        } )
+    } )
+} )
+
+
+// Segundo camino
+// 2.-Para
+. get ( "/ users-query" ,  ( req ,  res )  => {
+    const  {  consulta : { iden }  }  =  req ;
+    var  id  =  parseInt ( ` $ { iden } ` ) ;
+    if  ( isNaN ( id ) ) {
+        res . json ( {
+            msg : "Usuario no seleccionado" ,
+            cuerpo : datos
+    
+        } )
+    } más {
+        res . json ( {
+            msg : "Usuario Seleccionado" ,
+            cuerpo : datos . filter ( ( persona )  =>  persona . id  ===  id )
+    
+        } )
+    }    
+} )
+// Camino de Tercer
+// 3.-usuarios-params
+. get ( `/ users-params /: apellido` ,  ( req ,  res )  =>  {
+    const  { params : { apellido } }  =  req ;
+    var  ResultadoTotal  =  datos . filter ( ( persona ) =>  persona . apellido  ===  apellido )
+    var  email  =  ResultadoTotal . mapa ( ( persona ) =>  persona . email ) ;
+    var  comparar  =  false ;
+    datos . forEach ( element  =>  {
+        if ( elemento . apellido  ===  apellido ) {
+            comparar  =  verdadero
+        }
+    } ) ;
+    si ( comparar === verdadero ) {
+        res . json ( {
+            msg : "Usuario encontrado" ,
+            Apelli : apellido ,
+            cuerpo : correo electrónico
+        } )
+    } más {
+        res . json ( {
+            msg : "Usuario no encontrado" ,
+            cuerpo : "NULL"
+        } )
+    }
+    
+} )
+módulo . Exportaciones . RouterIndex2  =  enrutador ;
